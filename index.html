@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Wombos</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/main.js" defer></script>
+    <style>
+        body {
+            background-image: url('Teemo.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(253, 230, 180, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        button {
+            background-color: #f9b8ff;
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #f185f7;
+        }
+        /* Estilo para los resultados alineados a la izquierda */
+        #result {
+            margin-top: 20px;
+            color: black;
+            text-align: left; /* Alineación a la izquierda */
+        }
+    </style>
+</head>
+<body>
+    <audio id="backgroundMusic" src="canción.mp3"></audio>
+
+    <div class="container">
+        <h1>Generador de Wombos</h1>
+        <button id="generateButton">Generar Wombo</button>
+        <button id="resetButton">Resetear</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const generateButton = document.getElementById('generateButton');
+        const resetButton = document.getElementById('resetButton');
+        const resultDiv = document.getElementById('result');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        
+        // Lista de opciones
+        const options = [
+            "Akali + Zed (wombo ninja)",
+            "Akshan + Pyke (wombo invisible)",
+            "Ashe + Mundo (los frenadores del infierno)",
+            "Chino + Pantheon",
+            "Darius + Sett (duo mascachapa)",
+            "Graves + Teemo (combo cegador)",
+            "Kaisa + Cartitas",
+            "Miss Fortune + Veigar (jaula infernal)",
+            "Maokai + Teemo (wombo de cagadiñas)",
+            "Morgana + Veigar",
+            "Nautilus + Leona (wombo de stun infinito)",
+            "Nocturne + Cartitas (wombo de ultis)",
+            "Nocturne + Shen (wombo de ultis 2.0)",
+            "Olaf + Mundo (duo de achazos al horto)",
+            "Pantheon + Leona",
+            "Seraphine + Sona (doble sona combo)",
+            "Tahm + Yasuo",
+            "Tahm + Zac (doble catapulta)",
+            "Talon + Zed (wombo de asesinos)",
+            "Tresh + Blitz (wombo de ganchos)",
+            "Urgot + Singed (doble catapulta)",
+            "Varus + Ashe (wombo ulti de flechas)",
+            "Vexx + Neeko",
+            "Xerath + Lux (castigadores del infierno)"
+        ];
+
+        let usedOptions = [];
+        let counter = 1;
+
+        // Evento para generar un nuevo resultado
+        generateButton.addEventListener('click', () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+            }
+
+            // Selecciona una opción aleatoria no usada
+            if (usedOptions.length < options.length) {
+                let randomOption;
+                do {
+                    randomOption = options[Math.floor(Math.random() * options.length)];
+                } while (usedOptions.includes(randomOption));
+
+                // Agrega la opción a la lista de usadas y muestra el resultado
+                usedOptions.push(randomOption);
+                resultDiv.innerHTML += `<p>Opción ${counter}: ${randomOption}</p>`;
+                counter++;
+            } else {
+                resultDiv.innerHTML += "<p>No hay más opciones</p>";
+            }
+        });
+
+        // Evento para resetear los resultados
+        resetButton.addEventListener('click', () => {
+            resultDiv.innerHTML = "";
+            usedOptions = [];
+            counter = 1;
+        });
+    </script>
+</body>
+</html>
